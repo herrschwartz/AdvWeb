@@ -1,0 +1,78 @@
+{{define "header"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitter Mock</title>
+    <link rel="stylesheet" href="/public/css/reset.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lobster|Open+Sans'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="/public/css/styles.css">
+{{end}}
+
+{{define "header2"}}</head>
+<body>
+<div id="top">
+    <header>
+        <a href="/"><i class="fa fa-heart-o fa-3x"></i></a>
+        <nav>
+            {{if .LoggedIn}}
+            <a href="/api/logout"><p id="loginOut">Log Out</p></a>
+            {{else}}
+            <a href="/form/login"><p id="loginOut">Log In</p></a>
+            {{end}}
+        </nav>
+    </header>
+    <p id="motto">Seven Deadly Sins</p>
+    <p id="motto">One convenient location</p>
+
+    <input type="button" id = "makeNewPost" class = {{.UserName}} value="New Post" />
+    <textarea rows="4" cols="50" maxlength="255" placeholder="Enter your post here (max 255 charaters)" id="postText" ></textarea>
+    <p id="testRes"></p>
+    <!-- <p>{{.}}</p>
+    <p>{{.Email}}</p>
+    <p>{{.UserName}}</p>
+    <p>{{.LoggedIn}}</p> -->
+</div>
+<script>
+$("#makeNewPost").click(function() {
+  $.ajax({
+  url: "/api/post",
+  method: "POST",
+    data: {
+      Username: $("#makeNewPost").attr("class"), Post: $("#postText").val()
+    },
+    success: function( data ) {
+      $("#testRes").text(data);
+      $("main").empty();
+      getPosts();
+    }
+  });
+});
+
+window.onload = function() {
+  getPosts();
+};
+
+function getPosts(){
+  $.ajax({
+  url: "/api/getPosts",
+  method: "POST",
+    data: {
+
+    },
+    success: function( data ) {
+      console.log(data);
+       var postdata = data.split("/");
+       for(var i = 0; i < postdata.length; i++){
+         $("main").append("<section><i class='fa fa-user fa-2x'></i><p id='post'>"+postdata[i]+"</p></section>")
+       }
+    }
+  });
+}
+
+</script>
+{{end}}
+
+{{ define "footer" }}</body>
+</html>{{ end }}
