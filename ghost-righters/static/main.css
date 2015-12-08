@@ -1,0 +1,128 @@
+body{
+  background: #383838;
+  color: white;
+}
+textarea{
+  resize: none;
+  background: #383838;
+  border: solid 2px white;
+  color: white;
+}
+.hidden{
+  display: none !important;
+}
+#displayRequest{
+  position: fixed;
+  top: 20;
+  right: 20;
+  cursor: pointer;
+  z-index: 11;
+}
+#foobar{
+  background-color: #383838;;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 2px solid white;
+}
+#foobar p {
+  margin: 0;
+}
+#userInfo{
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#category{
+  background: #383838;
+  color: white;
+  font-size: 1.2em;
+  color: #fff;
+  padding: .5em;
+  padding-right: 2.5em;
+  margin: 0;
+  border: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+#catbox{
+  display: flex;
+  flex-direction: column;
+}
+#makePost{
+  display: flex;
+  align-items: flex-end;
+  position: fixed;
+  top: 60;
+  right: 0;
+  z-index: 10;
+}
+#catext{
+  font-size: 1.2em;
+  align-self: center;
+  padding: .35em;
+}
+#submitPost{
+  background: #383838;
+  border: 2px solid white;
+  color: white;
+  font-size: 1.2em;
+  padding: .55em;
+  width: 4em;
+  cursor: pointer;
+}
+#submitPost:hover{
+  border: 2px solid #A2D729;
+  color: #A2D729;
+}
+.postWrapper{
+  border: solid 2px #3C91E6;
+  margin-top: 15px;
+}
+.postWrapper p{
+  margin-top: 2px;
+  margin-bottom: 2px;
+  border-bottom: 2px solid #3C91E6;
+}
+#postBody{
+  position: relative;
+  vertical-align: middle;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
+  width: 50%;
+}
+.category{
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  border: 2px solid white;
+}
+.category::after { /*  Custom dropdown arrow */
+  content: "\25BC";
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -.5em;
+}
+.category::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+.category::before,
+.category::after {
+  position: absolute;
+  pointer-events: none;
+}

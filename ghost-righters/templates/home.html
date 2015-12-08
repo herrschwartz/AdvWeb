@@ -1,0 +1,82 @@
+<head>
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+<div id="foobar">
+  <div id="userInfo">
+    {{.Email}}
+    <p id="alias">{{.Alias}}</p>
+  </div>
+</div>
+<span id="displayRequest">Submit a Request</span>
+<div id="makePost" class="hidden">
+  <textarea rows="5" cols="40" id="postext" maxlength="1000" placeholder="enter request here ..."></textarea>
+  <div id="catbox">
+    <div id=catext>Pick A Category</div>
+<span class="category">
+  <select id="category">
+    <option value="English">English</option>
+    <option value="Anthropology">Anthropology</option>
+    <option value="Criminology">Criminology</option>
+    <option value="Biology">Biology</option>
+    <option value="Psychology">Psychology</option>
+    <option value="Political Science">Political Science</option>
+    <option value="Philosophy">Philosophy</option>
+    <option value="History">History</option>
+    <option value="Linguistics">Linguistics</option>
+    <option value="Other">Other...</option>
+  </select>
+</span>
+</div>
+  <input type="button" value="post" id="submitPost" />
+</div>
+<div id="postBody"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  getPosts();
+});
+$("#submitPost").click(function() {
+  $.ajax({
+  url: "/home/post",
+  method: "POST",
+    data: {
+       Alias: $("#alias").text(), Post: $("#postext").val(), Category: $("#category").val()
+    },
+    success: function( data ) {
+      $("#postBody").empty();
+      $("#postext").empty();
+      $("#makePost").addClass('hidden');
+      getPosts();
+    }
+  });
+});
+
+function getPosts(){
+  $.ajax({
+  url: "/home/getposts",
+  method: "POST",
+    data: {
+    },
+    success: function( data ) {
+      console.log(data);
+      for(var i = 0; i< data.length; i++){
+        var time = data[i].Time;
+        var plz = new Date(time);
+        var datetime = plz.toLocaleString();
+
+        $("#postBody").append("<div class='postWrapper'> <div> "+ data[i].Alias +" posted in: "+data[i].Category +" <p> " +datetime+" </p> </div> <div> "+data[i].Text+" </div></div>");
+      }
+    }
+  });
+}
+
+$("#displayRequest").click(function(event) {
+  if($("#makePost").hasClass('hidden')){
+    $("#makePost").removeClass('hidden');
+  }
+  else {
+    $("#makePost").addClass('hidden');
+  }
+});
+</script>
